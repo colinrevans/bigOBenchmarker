@@ -273,13 +273,13 @@ class OrderBenchmarker
     case analysis["kind"]
     when "omega"
       puts "          f(n) = ω( #{analysis["fn_name"]} )?".blue +
-        " g(n)/f(n) likely approaches 0 as n -> infinity."
+        " g(n)/f(n) may approach 0 as n -> infinity."
     when "theta"
       puts "          f(n) = θ( #{analysis["fn_name"]} )?".green +
-        " g(n)/f(n) likely approaches nonzero constant as n -> infinity."
+        " g(n)/f(n) may approach nonzero constant as n -> infinity."
     when "little o"
       puts "          f(n) = o( #{analysis["fn_name"]} )?".red +
-        " g(n)/f(n) likely approaches positive infinity as n -> infinity."
+        " g(n)/f(n) may approach positive infinity as n -> infinity."
     end
     puts ""
   end

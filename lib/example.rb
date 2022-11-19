@@ -3,7 +3,8 @@ require_relative "./benchmarker.rb"
 bm = OrderBenchmarker
         .new                         # initialize benchmarker with default values, detailed below.
         .named("Array Sum")          # name the benchmarker, for informative printing
-        .with_n_up_to(500000)            # choose the max sample size n
+        .with_n_up_to(500000)        # choose the max sample size n
+        .benchmarking_x_times(300)   # choose how many times to run each benchmark
         .creating_inputs_with do |n| # tell it how to create data for the input size
           Array.new(n, rand(0..n)) 
         end
