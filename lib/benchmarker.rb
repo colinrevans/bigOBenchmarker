@@ -248,50 +248,9 @@ class OrderBenchmarker
       input_size: input_size,
       expected_time: expected_time,
       ratio: expected_time / time_taken,
+      inverse_ratio: time_taken / expected_time,
       time_taken: time_taken,
     }
-  end
-
-  def find_higher_g_of_n(input_size, scalar, time_taken)
-    expected_time = 0
-    last_key = ""
-    @o_functions.each_key { |k| last_key = k }
-    prev_key = ""
-
-    @o_functions.each do |o_fn_name, o_fn|
-      expected_time = o_fn.call(input_size) * scalar + Float::EPSILON
-      lower_time =
-        (
-          if prev_key == ""
-            0
-          else
-            @o_functions[prev_key].call(input_size) * scalar + Float::EPSILON
-          end
-        )
-      if expected_time < time_taken && !(o_fn_name == last_key)
-        prev_key = o_fn_name
-        next
-      end
-
-      data = {
-        name: o_fn_name,
-        input_size: input_size,
-        expected_time: expected_time,
-        ratio: expected_time / time_taken,
-        time_taken: time_taken,
-      }
-
-      lower_data = {
-        name: prev_key,
-        input_size: input_size,
-        expected_time: lower_time,
-        ratio: lower_time / time_taken,
-        time_taken: time_taken,
-      }
-      return data, lower_data
-    end
-
-    raise "YUCK" # unreachable, as long as @o_functions has items.
   end
 
   def print_analysis(analysis)
