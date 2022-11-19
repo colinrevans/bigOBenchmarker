@@ -8,10 +8,12 @@ require "progress_bar"
 require "colorize"
 require "byebug"
 
+# float formatting
 def ff(float)
   format("%.15f", float).sub(/0+$/, "").sub(/\.$/, ".0")
 end
 
+# float array formatting
 def fa(arr)
   ret = "["
   arr.each do |elem|
@@ -153,7 +155,7 @@ class OrderBenchmarker
     self
   end
 
-  def with_n_upto(peak)
+  def with_n_up_to(peak)
     raise if peak < 1
 
     @inputs = (1..peak).to_a
