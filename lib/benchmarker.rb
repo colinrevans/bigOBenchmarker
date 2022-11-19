@@ -135,6 +135,11 @@ class OrderBenchmarker
     self
   end
 
+  def benchmarking_x_times(num)
+    @benchmark_times = num
+    self
+  end
+
   def creating_inputs_with(&block)
     @data_creation_proc = block
     self
@@ -319,8 +324,10 @@ class OrderBenchmarker
       slope_quartile_abs = slope_quartiles.map { |q| q.abs }
 
       limiting_to_a_value =
-        slope_quartile_abs[-2] > slope_quartile_abs[-1] ||
+        slope_quartile_abs[-3] > slope_quartile_abs[-2] && slope_quartile_abs[-2] > slope_quartile_abs[-1] ||
         slope_quartile_abs[2..].all? { |x| x < 0.05 }
+
+      limiting_to_a_value = false if (1...quartile_average.length).all? {|i| quartile_average[i] > quartile_average[i-1]}
 
       going_to_zero =
         average_across_quarters(ratio_arr)[3..].all? { |x| x < 1 } &&
