@@ -6,5 +6,27 @@ How does it work? It finds the running time for different sample sizes n, creati
 
 How do I use it?
 
+Create a benchmarker and set it up with two things: the function to measure, and the way to create data from each sample size n. Eg, to test the asymptotic running time of Array.sum, up to an array of 500 elements:
+
+```ruby
+bm = OrderBenchmarker
+        .new                         # initialize benchmarker with default values, detailed below.
+        .named("Array Sum")          # name the benchmarker, for informative printing
+        .with_n_up_to(500000)            # choose the max sample size n
+        .creating_inputs_with do |n| # tell it how to create data for the input size
+          Array.new(n, rand(0..n)) 
+        end
+        .benchmarking do |arr|       # give it a function to measure
+          arr.sum
+        end
+        .with_timeout(300)           # give it a number of seconds after which to stop benchmarking
+        .benchmark_and_print         # run the benchmarker with feedback in the terminal
+
+```
+
+Run ruby lib/example.rb to see it in action.
 
 
+Nonsense output? Try a higher n value.
+
+Bored? Ctrl-C stops the benchmarker, gives you the current results, and lets you keep going if you want to.
