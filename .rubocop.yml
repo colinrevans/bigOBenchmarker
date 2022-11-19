@@ -1,0 +1,10 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+require:
+  rubocop-sorbet
+  rubocop-rspec
+  rubocop-rake
+
+AllCops:
+  NewCops: enable
