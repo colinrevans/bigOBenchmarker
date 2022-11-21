@@ -382,11 +382,11 @@ end
 
 def average_across_quarters(arr)
   j, k, l = 0, arr.length / 4, arr.length / 2, arr.length * (3 / 4)
-  sum = ->(arr) { arr.reduce(0) { |acc, cur| acc + cur } }
-  first_quart = sum.call(arr[0..j]) / arr[0..j].length
-  second_quart = sum.call(arr[j..k]) / arr[j..k].length
-  third_quart = sum.call(arr[k..l]) / arr[k..l].length
-  fourth_quart = sum.call(arr[l..]) / arr[l..].length
+  avg = ->(arr) { arr.sum / arr.length.to_f }
+  first_quart = avg.call(arr[0..j])
+  second_quart = avg.call(arr[j..k])
+  third_quart = avg.call(arr[k..l])
+  fourth_quart = avg.call(arr[l..])
 
   [first_quart, second_quart, third_quart, fourth_quart]
 end
